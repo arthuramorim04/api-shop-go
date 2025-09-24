@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/arthu/shop-api-go/internal/config"
-	"github.com/arthu/shop-api-go/internal/db"
-	"github.com/arthu/shop-api-go/router"
+	"github.com/arthu/shop-api-go/internal/database"
+	"github.com/arthu/shop-api-go/api/handler"
 )
 
 func main() {
@@ -16,13 +16,13 @@ func main() {
 	cfg := config.Load()
 
 	// Connect DB
-	if err := db.Connect(cfg.DBDSN); err != nil {
+	if err := database.Connect(cfg.DBDSN); err != nil {
 		log.Fatalf("failed to connect database: %v", err)
 	}
-	defer db.Close()
+	defer database.Close()
 
 	r := gin.Default()
-	router.RegisterRoutes(r, cfg)
+	handler.RegisterRoutes(r, cfg)
 
 	if err := r.Run(cfg.Port()); err != nil {
 		log.Fatalf("failed to start server: %v", err)

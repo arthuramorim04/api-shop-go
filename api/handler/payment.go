@@ -1,4 +1,4 @@
-package web
+package handler
 
 import (
 	"net/http"
@@ -21,7 +21,7 @@ func RegisterPayment(r *gin.Engine, cfg *config.Config) {
 			return
 		}
 		if orderID != "" && body.Data.ID != "" && cfg.MPAccessToken != "" {
-			if status, err := mp.GetPayment(cfg.MPAccessToken, body.Data.ID); err == nil && status != "" {
+			if status, err := mp.ClientImpl.GetPayment(cfg.MPAccessToken, body.Data.ID); err == nil && status != "" {
 				// map MP status to our enum; keep same string if matches
 				s := models.OrderStatus(status)
 				_, _ = repo.UpdateOrderStatus(orderID, s)

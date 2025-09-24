@@ -1,4 +1,4 @@
-package db
+package database
 
 import (
 	"database/sql"
@@ -23,3 +23,6 @@ func Connect(dsn string) error {
 func Close() { if sqlDB != nil { _ = sqlDB.Close() } }
 
 func DB() *sql.DB { return sqlDB }
+
+// SetDB allows tests to inject a mock *sql.DB implementation.
+func SetDB(db *sql.DB) { sqlDB = db }

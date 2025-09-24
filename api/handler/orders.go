@@ -1,4 +1,4 @@
-package web
+package handler
 
 import (
 	"net/http"
@@ -11,7 +11,7 @@ import (
 	"github.com/arthu/shop-api-go/internal/models"
 	"github.com/arthu/shop-api-go/internal/mp"
 	"github.com/arthu/shop-api-go/internal/repo"
-	"github.com/arthu/shop-api-go/internal/middleware"
+	"github.com/arthu/shop-api-go/api/middleware"
 )
 
 type OrderProductReq struct {
@@ -48,7 +48,7 @@ func RegisterOrders(r *gin.Engine, cfg *config.Config) {
 		}
 		orderID := uuid.NewString()
 		pref := mp.PreferenceRequest{ Items: items, NotificationURL: cfg.MPNotificationURL + "/payment/notification?orderID=" + orderID }
-		paymentURL, err := mp.CreatePreference(cfg.MPAccessToken, pref)
+		paymentURL, err := mp.ClientImpl.CreatePreference(cfg.MPAccessToken, pref)
 		if err != nil || paymentURL == "" {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Erro ao criar o pedido"}); return
 		}

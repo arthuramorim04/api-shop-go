@@ -1,13 +1,13 @@
-package web
+package handler
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/arthu/shop-api-go/internal/config"
-	"github.com/arthu/shop-api-go/internal/models"
-	"github.com/arthu/shop-api-go/internal/repo"
-	"github.com/arthu/shop-api-go/internal/utils"
+    "github.com/gin-gonic/gin"
+    "github.com/arthu/shop-api-go/internal/config"
+    "github.com/arthu/shop-api-go/internal/models"
+    "github.com/arthu/shop-api-go/internal/repo"
+    "github.com/arthu/shop-api-go/internal/utils"
 )
 
 type loginRequest struct {

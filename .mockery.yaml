@@ -1,0 +1,11 @@
+with-expecter: true
+all: false
+packages:
+  github.com/arthu/shop-api-go/internal/mp:
+    interfaces:
+      - Client
+    config:
+      filename: mock_mp_client.go
+      dir: tests/mocks
+      mockname: MockMPClient
+      outpkg: mocks

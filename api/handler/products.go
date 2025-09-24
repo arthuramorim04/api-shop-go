@@ -1,4 +1,4 @@
-package web
+package handler
 
 import (
 	"net/http"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/arthu/shop-api-go/internal/config"
-	"github.com/arthu/shop-api-go/internal/middleware"
+	"github.com/arthu/shop-api-go/api/middleware"
 	"github.com/arthu/shop-api-go/internal/models"
 	"github.com/arthu/shop-api-go/internal/repo"
 )
