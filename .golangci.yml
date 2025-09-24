@@ -1,0 +1,81 @@
+run:
+  timeout: 5m
+  go: "1.21"
+  tests: true
+  modules-download-mode: readonly
+  skip-dirs:
+    - vendor
+    - .git
+
+# Reasonable defaults for a web API project
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - gosimple
+    - ineffassign
+    - errcheck
+    - unused
+    - typecheck
+    - gocritic
+    - revive
+    - gofumpt
+    - misspell
+    - gosec
+    - prealloc
+    - unconvert
+    - exportloopref
+  disable:
+    # Consider enabling later if you want stricter style checks
+    - gocyclo
+    - funlen
+    - nestif
+    - wsl
+    - lll
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  gosec:
+    # Some rules are too noisy for public APIs; tweak as needed
+    excludes:
+      - G115 # integer overflow conversion checks - often noisy with int casts
+  revive:
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: early-return
+      - name: errorf
+      - name: exported
+        arguments:
+          - checkPrivateReceivers: false
+      - name: if-return
+      - name: increment-decrement
+      - name: import-shadowing
+      - name: range-val-address
+      - name: redundant-import-alias
+      - name: superfluous-else
+      - name: unreachable-code
+  gofumpt:
+    extra-rules: true
+  misspell:
+    locale: US
+
+issues:
+  exclude-use-default: false
+  exclude-dirs:
+    - vendor
+  exclude-files:
+    - ".*\.gen\.go" # ignore generated files by pattern
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  new:
+    since: "HEAD~1"
+    exclude-use-default: true
+
+output:
+  sort-results: true
+  print-issued-lines: true
+  uniq-by-line: true
